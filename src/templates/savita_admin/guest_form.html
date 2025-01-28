@@ -1,0 +1,29 @@
+{% extends "savita_admin/partials/base.html" %}
+{% block content %}
+<div class="main-content mt-1">
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ guest.id|default:"Add New Guest" }}</h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" value="{{ guest.name|default:'' }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ guest.email|default:'' }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" id="phone_number" name="phone_number" value="{{ guest.phone_number|default:'' }}" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="{% url 'guest_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

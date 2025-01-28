@@ -1,0 +1,38 @@
+{% extends "savita_admin/partials/base.html" %}
+{% block content %}
+<div class="main-content mt-1">
+    <div class="card">
+        <div class="card-header">
+            <h4>Rooms List</h4>
+            <a href="{% url 'room_create' %}" class="btn btn-primary">Add New Room</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-stripped" id="table-1">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Type</th>
+                        <th>Price Per Night</th>
+                        <th>Availability</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.room_number }}</td>
+                        <td>{{ room.get_room_type_display }}</td>
+                        <td>{{ room.price_per_night }}</td>
+                        <td>{{ room.is_available|yesno:"Available,Not Available" }}</td>
+                        <td>
+                            <a href="{% url 'room_update' room.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'room_delete' room.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

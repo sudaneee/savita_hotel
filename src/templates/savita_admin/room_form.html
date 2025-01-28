@@ -1,0 +1,39 @@
+{% extends "savita_admin/partials/base.html" %}
+{% block content %}
+<div class="main-content mt-1">
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ room.id|default:"Add New Room" }}</h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="room_number">Room Number</label>
+                    <input type="text" id="room_number" name="room_number" value="{{ room.room_number|default:'' }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="room_type">Room Type</label>
+                    <select id="room_type" name="room_type" class="form-control" required>
+                        <option value="single" {% if room.room_type == 'single' %}selected{% endif %}>Single</option>
+                        <option value="double" {% if room.room_type == 'double' %}selected{% endif %}>Double</option>
+                        <option value="suite" {% if room.room_type == 'suite' %}selected{% endif %}>Suite</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price_per_night">Price Per Night</label>
+                    <input type="number" id="price_per_night" name="price_per_night" value="{{ room.price_per_night|default:'' }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="is_available" {% if room.is_available %}checked{% endif %}>
+                        Is Available
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="{% url 'room_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

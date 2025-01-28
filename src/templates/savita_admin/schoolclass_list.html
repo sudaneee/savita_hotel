@@ -1,0 +1,39 @@
+{% extends "savita_admin/partials/base.html" %}
+{% block content %}
+<div class="main-content mt-1">
+    <div class="card">
+        <div class="card-header">
+            <h4>Room List</h4>
+            <a href="" class="btn btn-primary">Add New Room</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-stripped" id="table-1">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Room Type</th>
+                        <th>Price Per Night</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for schoolclass in classes %}
+                    <tr>
+                        <td>{{ schoolclass.id }}</td>
+                        <td>{{ schoolclass.name }}</td>
+                        <td>{{ schoolclass.level }}</td>
+                        <td>{{ schoolclass.arm }}</td>
+                        <td>{{ schoolclass.description }}</td>
+                        <td>
+                            <a href="{% url 'schoolclass_update' schoolclass.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'schoolclass_delete' schoolclass.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

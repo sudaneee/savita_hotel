@@ -1,0 +1,38 @@
+{% extends "savita_admin/partials/base.html" %}
+{% block content %}
+<div class="main-content mt-1">
+    <div class="card">
+        <div class="card-header">
+            <h4>Booking List</h4>
+            <a href="{% url 'booking_create' %}" class="btn btn-primary">Add New Booking</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-stripped" id="table-1">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Guest</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.room.room_number }}</td>
+                        <td>{{ booking.guest.name }}</td>
+                        <td>{{ booking.check_in_date }}</td>
+                        <td>{{ booking.check_out_date }}</td>
+                        <td>
+                            <a href="{% url 'booking_update' booking.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'booking_delete' booking.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

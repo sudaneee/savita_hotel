@@ -1,0 +1,41 @@
+{% extends "savita_admin/partials/base.html" %}
+{% block content %}
+<div class="main-content mt-1">
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ booking.id|default:"Add New Booking" }}</h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="room">Room</label>
+                    <select id="room" name="room" class="form-control" required>
+                        {% for room in rooms %}
+                        <option value="{{ room.id }}" {% if booking.room.id == room.id %}selected{% endif %}>{{ room.room_number }} - {{ room.get_room_type_display }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="guest">Guest</label>
+                    <select id="guest" name="guest" class="form-control" required>
+                        {% for guest in guests %}
+                        <option value="{{ guest.id }}" {% if booking.guest.id == guest.id %}selected{% endif %}>{{ guest.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="check_in_date">Check-in Date</label>
+                    <input type="date" id="check_in_date" name="check_in_date" value="{{ booking.check_in_date|default:'' }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="check_out_date">Check-out Date</label>
+                    <input type="date" id="check_out_date" name="check_out_date" value="{{ booking.check_out_date|default:'' }}" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="{% url 'booking_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
